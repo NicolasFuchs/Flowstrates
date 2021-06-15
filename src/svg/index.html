@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flowstrates</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="../../lib/d3.v6.min.js"></script>
+    <script src="../../lib/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="paneContainer">
+
+        <div class="pane" id="leftPane">
+            <div class="header">
+                <h class="paneTitle">Origins</h>
+            </div>
+            <div class="mapContainer">
+                <img src="Loading.png" alt="" class="loading" id="leftLoading">
+                <svg class="svgPane" id="leftsvg"></svg>
+                <div id="leftSelectedAreasList">
+                    <b id="leftSelectedAreasCounter">selected area</b>
+                    <table><tbody></tbody></table>
+                </div>
+                <div class="notifContainer">
+                    <div class="notif" id="leftAggreModeNotif">Aggregation Mode</div>
+                    <div class="notif" id="leftLassoModeNotif">Lasso Mode</div>
+                </div>
+                <div class="bottomButtonContainer" id="leftbottomButtonContainer">
+                    <div class="bottomButton" id="leftClear">Clear</div>
+                    <div class="bottomButton" id="leftFit">Fit</div>
+                </div>
+                <div id="flowLegend">
+                    <b>Num of refugees</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="pane" id="midPane">
+            <div id="midTopContainer">
+                <svg class="svgPane" id="midTsvg"></svg>
+            </div>
+            <div id="oddataContainer">
+                <div id="bottomTimeContainer">
+                    <div id="bottomTimeLine"></div>
+                </div>
+                <div id="midBottomContainer">
+                    <div id="midOrigins" class="geoLine"></div>
+                    <svg class="svgPane" id="midBsvg"></svg>
+                    <div id="midDestinations" class="geoLine"></div>
+                </div>
+                <div class="bottomButton" id="bottomFit">Fit</div>
+            </div>
+        </div>
+
+        <div class="pane" id="rightPane">
+            <div class="header">
+                <h class="paneTitle">Destinations</h>
+            </div>
+            <div class="mapContainer">
+                <img src="Loading.png" alt="" class="loading" id="rightLoading">
+                <svg class="svgPane" id="rightsvg"></svg>
+                <div id="rightSelectedAreasList">
+                    <b id="rightSelectedAreasCounter">selected area</b>
+                    <table><tbody></tbody></table>
+                </div>
+                <div class="notifContainer">
+                    <div class="notif" id="rightAggreModeNotif">Aggregation Mode</div>
+                    <div class="notif" id="rightLassoModeNotif">Lasso Mode</div>
+                </div>
+                <div class="bottomButtonContainer" id="rightbottomButtonContainer">
+                    <div class="bottomButton" id="rightClear">Clear</div>
+                    <div class="bottomButton" id="rightFit">Fit</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
