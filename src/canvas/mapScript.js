@@ -25,7 +25,7 @@ const sideElts = {  left: {
         areaShapesDefault: []
     }};
 
-/*addModeNotificationHandlers();
+addModeNotificationHandlers();
 
 const pathsFileUrl = '../../data/countryPaths.json';
 const nodesFileUrl = '../../data/countryNodes.csv';
@@ -41,7 +41,7 @@ const rightZoom = addMapZoomBehavior('right'); rightsvg.call(rightZoom);
 const rightDrag = addMapDragBehavior('right'); rightsvg.call(rightDrag);
 sideElts.right.zoom = rightZoom;
 addBottomButtonHandlers('right');
-loadAreaData('right', pathsFileUrl, nodesFileUrl, shapesFileUrl, createAreaObject);*/
+loadAreaData('right', pathsFileUrl, nodesFileUrl, shapesFileUrl, createAreaObject);
 
 /**********************************************************************************************************************/
 /* Handlers for mode notifications display */

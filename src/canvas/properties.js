@@ -24,3 +24,4 @@ let rectWidthHeightRatio = 3;
 let fitDuration = 3000;
 
 let oddataFontSize = 10;
+let oddataBackgroundColor = 0x404040;
