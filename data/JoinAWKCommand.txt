@@ -1,0 +1,1 @@
+awk -F, "NR == FNR {codes[$1] = $2; next;} NR != FNR {code = codes[$6]; print $0 FS (code ? code : \"XXX\") > \"output.csv\"}" countryNodesForJoint.csv alt_temperatures_cut.csv

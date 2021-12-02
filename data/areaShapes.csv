@@ -1,0 +1,4 @@
+Code,Shape,AreaScale
+STA,rect,5
+VAR,circle,5
+TIB,circle,0.3

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flowstrates - Pixi</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="../lib/d3.v7.min.js"></script>
+    <script src="../lib/pixi.min.js"></script>
+
+    <script src="properties.js"></script>
+    <script src="generalScript.js" defer></script>
+    <script src="mapScript.js" defer></script> <!-- USEFUL -->
+    <script src="odScript.js" defer></script>
+    <script src="altScript.js" defer></script>
+    <script src="initScript.js" defer></script>
+</head>
+<body>
+
+    <div id="paneContainer">
+
+        <div class="pane" id="leftPane">
+            <div class="header">
+                <h1 class="paneTitle">Origins</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../media/Loading.png" alt="" class="loading" id="leftLoading">
+                <svg id="leftsvg" class="svgPane"></svg>
+                <div id="leftSelectedAreasList" class="selectedAreasList">
+                    <b id="leftSelectedAreasCounter">selected area</b>
+                    <table><tbody></tbody></table>
+                </div>
+                <div class="notifyContainer">
+                    <div id="leftAggreModeNotify" class="notify">Aggregation Mode</div>
+                    <div id="leftLassoModeNotify" class="notify">Lasso Mode</div>
+                </div>
+                <div id="leftBottomButtonContainer" class="bottomButtonContainer">
+                    <div id="leftClear" class="button">Clear</div>
+                    <div id="leftFit" class="button">Fit</div>
+                </div>
+                <div id="flowLegend">
+                    <b>Num of refugees</b>
+                </div>
+            </div>
+        </div>
+
+        <div id="midPane" class="pane">
+
+            <div id="settingsContainer">
+                <h3 id="displayTitle" class="settingsTitle">Display</h3>
+                <h3 id="groupTitle" class="settingsTitle">Group by</h3>
+                <h3 id="sortTitle" class="settingsTitle">Sort by</h3>
+
+                <div id="displayButtonContainer" class="settingsButtonContainer">
+                    <div id="linesDisplayOption" class="optionButton button">Lines</div>
+                    <div id="diffDisplayOption" class="optionButton button">Diff</div>
+                </div>
+                <div id="groupButtonContainer" class="settingsButtonContainer">
+                    <div id="originGroupOption" class="optionButton button">Origin</div>
+                    <div id="destinationGroupOption" class="optionButton button">Destination</div>
+                </div>
+                <div id="sortButtonContainer" class="settingsButtonContainer">
+                    <div id="minSortOption" class="optionButton button">Min</div>
+                    <div id="maxSortOption" class="optionButton button">Max</div>
+                    <div id="avgSortOption" class="optionButton button">Avg</div>
+                </div>
+                <img id="settingsLogo" alt="settingsLogo" src="../media/settings.png">
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div id="altDataContainer">
+                <div id="altTimeContainer">
+                    <div id="altTimeLineContainer"></div>
+                    <div id="altLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="altRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="altGeoContainer">
+                    <canvas id="altGeoCanvas" class="altGeoLine"></canvas>
+                    <canvas id="altCanvas"></canvas>
+                    <div id="altLegend"></div>
+                </div>
+                <div id="altCategories"></div>
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div id="odDataContainer">
+                <div id="odTimeContainer">
+                    <div id="odTimeLineContainer"></div>
+                    <div id="odLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="odRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="odGeoContainer">
+                    <canvas id="originCanvas" class="odGeoLine"></canvas>
+                    <canvas id="odCanvas"></canvas>
+                    <canvas id="destinationCanvas" class="odGeoLine"></canvas>
+                </div>
+                <div id="odFit" class="button">Fit</div>
+            </div>
+        </div>
+
+        <div id="rightPane" class="pane">
+            <div class="header">
+                <h1 class="paneTitle">Destinations</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../media/Loading.png" alt="" class="loading" id="rightLoading">
+                <svg id="rightsvg" class="svgPane"></svg>
+                <div id="rightSelectedAreasList" class="selectedAreasList">
+                    <b id="rightSelectedAreasCounter">selected area</b>
+                    <table><tbody></tbody></table>
+                </div>
+                <div class="notifyContainer">
+                    <div id="rightAggreModeNotify" class="notify">Aggregation Mode</div>
+                    <div id="rightLassoModeNotify" class="notify">Lasso Mode</div>
+                </div>
+                <div id="rightBottomButtonContainer" class="bottomButtonContainer">
+                    <div id="rightClear" class="button">Clear</div>
+                    <div id="rightFit" class="button">Fit</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="odTooltip"></div>
+</body>
+</html>
