@@ -11,8 +11,8 @@
     <script src="../../../lib/lodash.js"></script>
 
     <script src="../properties.js"></script>
-    <script src="../generalScript.js" defer></script>
     <script src="../questions.js" defer></script>
+    <script src="../generalScript.js" defer></script>
     <script src="../mapScript.js" defer></script>
     <script src="../odScript.js" defer></script>
     <script src="altScript.js" defer></script>
@@ -85,10 +85,7 @@
                     <div id="maxAltSortOption" class="altSortOption optionButton button">Max</div>
                     <div id="avgAltSortOption" class="altSortOption optionButton button">Avg</div>
                     <div id="geoAltSortOption" class="altSortOption optionButton button">Geo</div>
-                </div>
-                <div id="datasetAltOptionsContainer" class="settingsOptionsContainer">
-                    <label for="datasetSelect" class="settingsOptionsTitle">Dataset</label>
-                    <select id="datasetSelect" class="optionButton"></select>
+                    <select id="sortSelect" class="optionButton"></select>
                 </div>
             </div>
 
@@ -104,23 +101,8 @@
                     <canvas id="altGeoCanvas" class="altGeoLine"></canvas>
                     <canvas id="altCanvas"></canvas>
                     <div id="altLegendContainer">
-                        <div id="altLegend" class="legend">
-                            <b id="altLegendTitle" class="legendTitle"></b>
-                            <div id="altLegendCheckbox" class="checkmarkLabel clicked">
-                                <div class="checkmark">
-                                    <img src="../../../media/checkmark.png" alt="">
-                                </div>
-                                <text>Local colorScale</text>
-                            </div>
-                            <b id="altLegendArea"></b>
-                            <div class="legendStatContainer">
-                                <div id="altStatColor0" class="statColor"></div><text id="altStatText0" class="statText"></text>
-                                <div id="altStatColor1" class="statColor"></div><text id="altStatText1" class="statText"></text>
-                                <div id="altStatColor2" class="statColor"></div><text id="altStatText2" class="statText"></text>
-                                <div id="altStatColor3" class="statColor"></div><text id="altStatText3" class="statText"></text>
-                                <div id="altStatColor4" class="statColor"></div><text id="altStatText4" class="statText"></text>
-                            </div>
-                        </div>
+                        <b id="altLegendAreaVB"></b>
+                        <div id="altLegendsContainer"></div>
                     </div>
                 </div>
             </div>
@@ -215,7 +197,7 @@
         </div>
         <div class="questionsPage videoPage">
             <video id="video" onended="videoEnded()">
-                <source src="../../../media/end_versionA.mp4" type="video/mp4">
+                <source src="../../../media/end_versionB.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -258,12 +240,12 @@
             <div id="qualitativeEval">
                 <div id="versionsLegend">
                     <div class="versionsHolder">
-                        <div>B (Part 1)</div>
-                        <img class="versionsImage" src="../../../media/versionB.JPG" alt="VersionB">
+                        <div>A (Part 1)</div>
+                        <img class="versionsImage" src="../../../media/versionA.JPG" alt="VersionA">
                     </div>
                     <div class="versionsHolder">
-                        <div>A (Part 2)</div>
-                        <img class="versionsImage" src="../../../media/versionA.JPG" alt="VersionA">
+                        <div>B (Part 2)</div>
+                        <img class="versionsImage" src="../../../media/versionB.JPG" alt="VersionB">
                     </div>
                 </div>
                 <div id="ABChoices">
@@ -273,7 +255,7 @@
                     <div>Which version is the most intuitive ?</div>
                     <input type="radio" name="AorBq1"  value="A">
                     <input type="radio" name="AorBq1" value="B">
-                    <div>Which version did you find the most findings with ?</div>
+                    <div>Which version did you find the most interesting findings with ?</div>
                     <input type="radio" name="AorBq2" value="A">
                     <input type="radio" name="AorBq2" value="B">
                     <div>Which version is easier to work with ?</div>

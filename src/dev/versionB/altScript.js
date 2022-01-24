@@ -791,8 +791,8 @@ function applyAltGrouping() {
         const difference = newAltDataObject.data[id].datasets[i].difference;
         //for (const dataColumnType in originalData) {
             //for (const date in originalData[dataColumnType]) {
-        for (const dataColumnType in difference.data) {             //TODO test
-            for (const date in difference.data[dataColumnType]) {   //TODO test
+        for (const dataColumnType in difference.data) {             //TODO flowstratesplus
+            for (const date in difference.data[dataColumnType]) {   //TODO flowstratesplus
                 const diff = originalData[dataColumnType][date] - originalData[dataColumnType]?.[parseInt(date) - 1];
                 if (!isNaN(diff)) {
                     difference.data[dataColumnType][date] = diff;
@@ -802,7 +802,7 @@ function applyAltGrouping() {
                         difference.avgValue = difference.avgValue + diff;
                     }
                 } else {
-                    delete difference.data[dataColumnType][date];   //TODO test
+                    delete difference.data[dataColumnType][date];   //TODO flowstratesplus
                 }
             }
         }
