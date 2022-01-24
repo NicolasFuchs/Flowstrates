@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flowstrates</title>
+    <link rel="icon" type="image/jpg" href="../../../media/icon.jpg">
+    <link rel="stylesheet" href="../index.css">
+    <script src="../../../lib/d3.v7.min.js"></script>
+    <script src="../../../lib/pixi.min.js"></script>
+    <script src="../../../lib/deck.min.js"></script>
+    <script src="../../../lib/lodash.js"></script>
+
+    <script src="../properties.js"></script>
+    <script src="../questions.js" defer></script>
+    <script src="../generalScript.js" defer></script>
+    <script src="../mapScript.js" defer></script>
+    <script src="../odScript.js" defer></script>
+    <script src="altScript.js" defer></script>
+    <script src="compareScript.js" defer></script>
+    <script src="initScript.js" defer></script>
+</head>
+<body>
+    <div id="paneContainer">
+
+        <img id="questionsLogo" alt="questionsLogo" src="../../../media/questions.png">
+
+        <div class="pane" id="leftPane">
+            <div class="header">
+                <h1 class="paneTitle">Origins</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="leftLoading">
+                <svg id="leftsvg" class="svgPane"></svg>
+            </div>
+        </div>
+
+        <div id="leftSelectedAreasList" class="selectedAreasList">
+            <b id="leftSelectedAreasCounter">selected area</b>
+            <table><tbody></tbody></table>
+        </div>
+        <div id="leftNotifyContainer" class="notifyContainer">
+            <div id="leftLassoModeNotify" class="notify">Lasso Mode</div>
+            <div id="leftAggreModeNotify" class="notify">Aggregation Mode</div>
+        </div>
+        <div id="odLegend" class="legend">
+            <b id="odLegendTitle" class="legendTitle"></b>
+            <div id="odLegendCheckbox" class="checkmarkLabel clicked">
+                <div class="checkmark">
+                    <img src="../../../media/checkmark.png" alt="">
+                </div>
+                <text>Local colorScale</text>
+            </div>
+            <b id="odLegendArea"></b>
+            <div id="odLegendStatContainer" class="legendStatContainer">
+                <div id="odStatColor0" class="statColor"></div><text id="odStatText0" class="statText"></text>
+                <div id="odStatColor1" class="statColor"></div><text id="odStatText1" class="statText"></text>
+                <div id="odStatColor2" class="statColor"></div><text id="odStatText2" class="statText"></text>
+                <div id="odStatColor3" class="statColor"></div><text id="odStatText3" class="statText"></text>
+                <div id="odStatColor4" class="statColor"></div><text id="odStatText4" class="statText"></text>
+            </div>
+        </div>
+        <div id="leftTopButtonContainer" class="topButtonContainer">
+            <div id="leftClear" class="button">Clear</div>
+            <div id="leftFit" class="button">Fit</div>
+        </div>
+
+
+        <div id="midPane" class="pane">
+            <div id="midLoadingContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="midLoading">
+            </div>
+
+            <div class="settingsContainer">
+                <div id="displayAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Display</text>
+                    <div id="diffAltDisplayOption" class="optionButton button">Difference</div>
+                </div>
+                <div id="GroupAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Group</text>
+                    <div id="geoAltGroupOption" class="optionButton button">All</div>
+                </div>
+                <div id="sortAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Sort by</text>
+                    <div id="minAltSortOption" class="altSortOption optionButton button">Min</div>
+                    <div id="maxAltSortOption" class="altSortOption optionButton button">Max</div>
+                    <div id="avgAltSortOption" class="altSortOption optionButton button">Avg</div>
+                    <div id="geoAltSortOption" class="altSortOption optionButton button">Geo</div>
+                    <select id="sortSelect" class="optionButton"></select>
+                </div>
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div id="altDataContainer">
+                <div id="altTimeContainer">
+                    <div id="altTimeLineContainer"></div>
+                    <div id="altLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="altRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="altGeoContainer">
+                    <canvas id="altGeoCanvas" class="altGeoLine"></canvas>
+                    <canvas id="altCanvas"></canvas>
+                    <div id="altLegendContainer">
+                        <b id="altLegendAreaVB"></b>
+                        <div id="altLegendsContainer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comparedDataContainer">
+                <div id="dataClear" class="button">Clear</div>
+                <div id="comparedCanvasContainer">
+                    <canvas id="comparedAltCanvas" class="comparedCanvas"></canvas>
+                    <canvas id="comparedODCanvas" class="comparedCanvas"></canvas>
+                </div>
+                <div id="dataFit" class="button">Fit</div>
+            </div>
+
+            <div id="odDataContainer">
+                <div id="odTimeContainer">
+                    <div id="odTimeLineContainer"></div>
+                    <div id="odLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="odRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="odGeoContainer">
+                    <canvas id="originCanvas" class="odGeoLine"></canvas>
+                    <canvas id="odCanvas"></canvas>
+                    <canvas id="destinationCanvas" class="odGeoLine"></canvas>
+                </div>
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div class="settingsContainer">
+                <div id="displayODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Display</text>
+                    <div id="linesODDisplayOption" class="optionButton button">Lines</div>
+                    <div id="diffODDisplayOption" class="optionButton button">Difference</div>
+                </div>
+                <div id="groupODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Group by</text>
+                    <div id="originODGroupOption" class="optionButton button">Origin</div>
+                    <div id="destinationODGroupOption" class="optionButton button">Destination</div>
+                </div>
+                <div id="sortODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Sort by</text>
+                    <div id="minODSortOption" class="odSortOption optionButton button">Min</div>
+                    <div id="maxODSortOption" class="odSortOption optionButton button">Max</div>
+                    <div id="avgODSortOption" class="odSortOption optionButton button">Avg</div>
+                    <div id="oriODSortOption" class="odSortOption optionButton button">Origin</div>
+                    <div id="desODSortOption" class="odSortOption optionButton button">Destination</div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div id="rightPane" class="pane">
+            <div class="header">
+                <h1 class="paneTitle">Destinations</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="rightLoading">
+                <svg id="rightsvg" class="svgPane"></svg>
+            </div>
+        </div>
+        <div id="rightSelectedAreasList" class="selectedAreasList">
+            <b id="rightSelectedAreasCounter">selected area</b>
+            <table><tbody></tbody></table>
+        </div>
+        <div id="rightNotifyContainer" class="notifyContainer">
+            <div id="rightLassoModeNotify" class="notify">Lasso Mode</div>
+            <div id="rightAggreModeNotify" class="notify">Aggregation Mode</div>
+        </div>
+        <div id="rightTopButtonContainer" class="topButtonContainer">
+            <div id="rightClear" class="button">Clear</div>
+            <div id="rightFit" class="button">Fit</div>
+        </div>
+
+        <div id="leftDeck" class="deckLines"></div>
+        <div id="rightDeck" class="deckLines"></div>
+
+    </div>
+
+    <div id="tooltip"></div>
+    <div id="questionsOverlay"></div>
+    <div id="questionsPane">
+        <div class="questionsPage nonClosablePage">
+            <h1> Welcome !</h1>
+            <img id="questionsStartSmiley" src="../../../media/smileyStart.png" alt="smiley">
+            <button class="questionsButton button">Start experience</button>
+        </div>
+        <div class="questionsPage explanationPage">
+            <div id="explanations">
+                This user experience will last approximately 30 minutes.
+                Your participation is treated anonymously ! <br><br>
+                Tasks are split in two parts of 10 minutes. <br>
+                A questionnaire of about 5 minutes ends the experience.<br><br>
+                Before the first part begins, a video introduction (~1min) to the program will be given on the next slide. Turn your volume up !<br><br>
+                After the video is over, a timer of 10 minutes is launched. <br><br>
+                Responses to tasks have to be answered on this window.
+                It can be moved anywhere on the page for convenience and changes are saved when it is closed.<br><br>
+            </div>
+            <button id="videoButton" class="questionsButton button">Explanation video</button>
+        </div>
+        <div class="questionsPage videoPage">
+            <video id="video" onended="videoEnded()">
+                <source src="../../../media/begin_versionB.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="questionsPage explanationPage">
+            <div>
+                Your task in this first part is to use the program and discover any finding only concerning data. <br>
+                Imagine that you are a data scientist on this project, your goal is to make some observations about the data. <br><br>
+                Once an observation is done, write it directly afterwards in the questions window and validate it. <br><br>
+                Try to find around 3 findings. <br><br>
+                Free comments should be written only at the very end of evaluation.
+            </div>
+            <button id="startPartButton" class="questionsButton button">Start Part 1</button>
+        </div>
+        <div id="findingPage" class="questionsPage">
+            <img class="questionsCloseButton nextToTimer" src="../../../media/close.png" alt="close">
+            <div id="questionsTimer">
+                <div id="questionsTimerMin"></div>:<div id="questionsTimerSec"></div>
+            </div>
+            <div id="findingContainer">
+                <div id="findingTableHeader">
+                    <div>F#</div>
+                    <div>Finding</div>
+                </div>
+                <div id="findingTable">No finding</div>
+            </div>
+            <div id="buttonTextAreaContainer">
+                <button id="addFindingButton" class="questionsButton button">
+                    <img id="findingPlus" src="../../../media/plus.png" alt="plus">
+                    Add new finding
+                </button>
+                <div id="textAreaContainer">
+                    <textarea id="findingsTextArea" spellcheck="false"></textarea>
+                    <div id="findingButtonContainer">
+                        <img id="findingValidate" class="button" src="../../../media/validate.png" alt="validate">
+                        <img id="findingDelete" class="button" src="../../../media/delete.png" alt="delete">
+                    </div>
+                </div>
+                <button id="endPartButton" class="questionsButton button">Finish Part 1</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

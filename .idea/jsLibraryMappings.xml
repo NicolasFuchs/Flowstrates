@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{@types/d3, @types/derhuerst__cli-on-key, @types/jquery, d3.v6, deck.min.js}" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
