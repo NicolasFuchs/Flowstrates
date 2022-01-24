@@ -1,0 +1,1 @@
+awk -F, "NR==1 {for(i = 2; i <= NF; ++i) dates[i] = $i; print "Geocode,Year,WarDeathsData" > \"newWarDeaths.csv\"} NR!=1 {for (i = 2; i <= NF; ++i) { if ($i) print $1\",\"dates[i]\",\"$i > \"newWarDeaths.csv\"}}" warDeaths.csv

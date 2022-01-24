@@ -1,0 +1,970 @@
+/* General and Maps CSS */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    font-family: Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+#paneContainer {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4%;
+    width: 100%;
+}
+
+.loading {
+    /*animation: loading 1s infinite linear;*/ /*resize*/
+    width: 20%;
+    height: auto;
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 0;
+    place-self: center;
+}
+
+@keyframes loading {
+    100% { transform: rotate(360deg); }
+}
+
+.pane {
+    position: relative;
+    height: 100%;
+}
+
+.mapContainer {
+    height: 96%;
+    width: 100%;
+    position: relative;
+    display: grid;
+}
+
+#midLoadingContainer {
+    height: 92%;
+    width: 100%;
+    position: absolute;
+    top: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+@keyframes delayedHide {    /*resize*/
+    to { visibility: hidden; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fadeOut {
+    animation: 1s ease-in-out 0s forwards fadeOut, loading 1s infinite linear, 1s linear 1s forwards delayedHide;
+}
+
+.fadeIn {   /*resize*/
+    visibility: visible;
+    animation: 1s ease-in-out 0s forwards fadeIn, loading 1s infinite linear;
+}
+
+.svgPane {
+    height: 100%;
+    width: 100%;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.paneTitle {
+    font: bold 3vh Helvetica, sans-serif;
+}
+
+#leftsvg, #rightsvg {
+    background-color: lightskyblue;
+}
+
+.leftAreaPath, .rightAreaPath {
+    cursor: pointer;
+}
+
+.leftAreaPoint, .leftAreaName, .rightAreaPoint, .rightAreaName {
+    pointer-events: none;
+}
+
+.selectedAreasList {
+    width: 120px;
+    position: absolute;
+    top: calc(4% + 5px);
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    font-size: 11px;
+    overflow-x: hidden;
+    padding: 5px;
+    opacity: 0;
+    z-index: 1;
+}
+
+#leftSelectedAreasList {
+    left: 5px;
+}
+
+#rightSelectedAreasList {
+    left: calc(75% + 5px);
+}
+
+.selectedAreasList table {
+    width: 100%;
+}
+
+.selectedAreasList tbody {
+    display: block;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.selectedAreasList tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.notifyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 5px;
+    position: absolute;
+    bottom: 5px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#leftNotifyContainer {
+    right: calc(75% + 5px);
+}
+
+#rightNotifyContainer {
+    right: 5px;
+}
+
+.notify {
+    height: 20px;
+    width: fit-content;
+    border: 2px solid red;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 5px;
+    display: none;
+}
+
+.topButtonContainer {
+    width: 85px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    top: calc(4% + 5px);
+    opacity: 0;
+    z-index: 1;
+}
+
+#leftTopButtonContainer {
+    right: calc(75% + 5px);
+}
+
+#rightTopButtonContainer {
+    right: 5px;
+}
+
+.button {
+    height: 20px;
+    width: fit-content;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.button:hover {
+    background-color: rgba(200, 200, 200, 0.9);
+    cursor: pointer;
+}
+
+.legend {
+    height: 200px;
+    padding: 10px;
+    font-size: 10px;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 10% 10% 20% 60%;
+    box-sizing: border-box;
+}
+
+#odLegend {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    opacity: 0;
+    z-index: 1;
+}
+
+.checkmarkLabel > .checkmark {
+    height: 10px;
+    width: 10px;
+}
+
+.legendTitle {
+    font-size: 11px;
+}
+
+.legendStatContainer {
+    display: grid;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-columns: 20px auto;
+}
+
+.statColor {
+    height: 2vh;
+    width: 2vh;
+}
+
+.statText {
+    padding-left: 10px;
+}
+
+.statColor, .statText {
+    align-self: center;
+}
+
+/**********************************************************************************************************************/
+/* OD Part CSS */
+
+#odDataContainer {
+    width: 100%;
+    height: 41%;
+    position: relative;
+    opacity: 0;
+}
+
+.dataSpacer {
+    width: 100%;
+    height: 1%;
+}
+
+#odGeoContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    overflow: hidden;
+}
+
+#odCanvas {
+    width: 100%;
+    height: 100%;
+    grid-column: 2;
+    background: grey;
+    cursor: pointer;
+}
+
+.odGeoLine {
+    height: 100%;
+}
+
+#midDestinations {
+    grid-column: 3;
+}
+
+.odTimeText {
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+#odTimeContainer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#odTimeLineContainer {
+    margin: auto;
+    height: 100%;
+    position: relative;
+}
+
+.leftTimeHider {
+    left: 0;
+}
+
+.rightTimeHider {
+    right: 0;
+}
+
+.timeHider {
+    position: absolute;
+    top: 0;
+    opacity: 0.7;
+    height: 100%;
+    background-color: white;
+}
+
+#tooltip {
+    position: absolute;
+    pointer-events: none;
+    display: none;
+    padding: 0.5em;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+}
+
+#odTimeDOMZoomedLine {
+    position: relative;
+    height: 100%;
+}
+
+/**********************************************************************************************************************/
+/* Alt Part CSS */
+
+#altDataContainer {
+    width: 100%;
+    height: 41%;
+    opacity: 0;
+}
+
+#altGeoContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    overflow: hidden;
+}
+
+#altCategories {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    pointer-events: none;
+}
+
+.altCategory {
+    height: 100%;
+    display: flex;
+}
+
+#altCanvas {
+    width: 100%;
+    height: 100%;
+    grid-column: 2;
+    background: grey;
+    cursor: pointer;
+}
+
+.altGeoLine {
+    height: 100%;
+}
+
+#altTimeContainer {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#altTimeLineContainer {
+    margin: auto;
+    height: 100%;
+    position: relative;
+}
+
+#altTimeDOMZoomedLine {
+    position: relative;
+    height: 100%;
+}
+
+.altTimeText {
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+.settingsContainer {
+    display: flex;
+    justify-content: space-around;
+    height: 4%;
+    width: 100%;
+    background-color: #404040;
+    font-size: 0.9vw;
+}
+
+#questionsLogo {
+    height: 3%;
+    max-height: 3%;
+    opacity: 0;
+    width: auto;
+    position: absolute;
+    top: 0.5vh;
+    right: 0.5vh;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#questionsPane {
+    display: none;
+    width: 25%;
+    height: 80%;
+    background-color: dimgrey;
+    position: fixed;
+    top: 0;
+    left: 75%;
+    border: 1px solid black;
+    border-radius: 20px;
+    z-index: 2;
+    box-shadow: black 0px 0px 5px 0.05px;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+    overflow: hidden;
+    font-size: 1.8vh;
+}
+
+.questionsPage:first-child {
+    display: grid;
+}
+
+#questionsOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.95);
+    display: none;
+    z-index: 2;
+}
+
+.nextToTimer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#questionsTimer {
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    place-items: center;
+    height: 100%;
+    font-size: 30px;
+}
+
+#questionsTimerMin, #questionsTimerSec {
+    line-height: 100%;
+    padding: 0 2px 0 2px;
+}
+
+#endPartButton {
+    display: none;
+}
+
+.questionsPage {
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: 5% 25% 40% 30%;
+    color: white;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#startPartButton {
+    align-self: start;
+}
+
+#findingPage {
+    grid-template-rows: 10% 70% 20%;
+    box-sizing: border-box;
+}
+
+#findingContainer {
+    height: 100%;
+    width: 90%;
+    display: grid;
+    grid-template-rows: 10% 90%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#findingTableHeader {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    background-color: #404040;
+    place-items: center;
+}
+
+#findingTableHeader > div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    place-items: center;
+    place-content: center;
+}
+
+#findingTableHeader > div:first-child {
+    border-right: 1px solid white;
+    box-sizing: border-box;
+}
+
+#findingTable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    color: black;
+    overflow-y: scroll;
+}
+
+.findingLine {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    border-bottom: 1px solid dimgrey;
+}
+
+.findingLine > div {
+    box-sizing: border-box;
+    padding: 5px 0 5px 0;
+}
+
+.findingLine > div:first-child {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    border-right: 1px solid dimgrey;
+}
+
+.findingLine > div:nth-child(2) {
+    padding-left: 5px;
+    white-space: pre-wrap;
+}
+
+#findingTable::-webkit-scrollbar {
+    display: none;
+}
+
+#buttonTextAreaContainer {
+    height: 100%;
+    width: 90%;
+    display: grid;
+    place-items: center;
+}
+
+#addFindingButton {
+    display: flex;
+    width: 180px;
+    grid-row: 1;
+    grid-column: 1;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#textAreaContainer {
+    height: 60%;
+    width: 100%;
+    display: none;
+    grid-template-columns: 88% 12%;
+    place-items: center;
+}
+
+#findingPlus {
+    min-height: 50%;
+    max-height: 50%;
+}
+
+#findingButtonContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+#findingValidate {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+#findingValidate, #findingDelete {
+    min-height: 45%;
+    box-sizing: border-box;
+}
+
+#findingsTextArea {
+    height: 100%;
+    width: 100%;
+    font-family: Helvetica, sans-serif;
+    resize: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#findingsTextArea::-webkit-scrollbar {
+    display: none;
+}
+
+.explanationPage {
+    grid-template-rows: 65% 35%;
+    padding: 0 10% 0 10%;
+    box-sizing: border-box;
+}
+
+.explanationPage2 {
+    grid-template-rows: 40% 60%;
+    padding: 0 10% 0 10%;
+    box-sizing: border-box;
+}
+
+.onePage {
+    grid-template-rows: 100%;
+}
+
+#explanations {
+    align-self: end;
+}
+
+.nonClosablePage {
+    grid-template-rows: 30% 40% 30%;
+}
+
+.videoPage {
+    grid-template-rows: 100%;
+}
+
+#video {
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    display: none;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
+.questionsPage > h1 {
+    font-size: 50px;
+}
+
+.questionsPage > h2 {
+    font-size: 40px;
+}
+
+.questionsCloseButton {
+    height: 20px;
+    width: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+    justify-self: start;
+}
+
+.questionsCloseButton:hover {
+    filter: invert();
+}
+
+#questionsStartSmiley {
+    width: 50%;
+    opacity: 0.5;
+}
+
+#questionsEndSmiley {
+    width: 50%;
+}
+
+.questionsButton {
+    height: 50px;
+    width: 70%;
+}
+
+#qualitativeEval {
+    height: 100%;
+    width: 80%;
+    display: grid;
+    grid-template-rows: 20% 15% 15% 15% 25% 10%;
+    overflow-y: auto;
+    place-items: center;
+    font-size: 0.8vw;
+}
+
+#qualitativeEval::-webkit-scrollbar {
+    display: none;
+}
+
+.qualitativeSend {
+    pointer-events: none;
+}
+
+#versionsLegend {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.versionsHolder {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 20% 80%;
+    place-items: center;
+}
+
+.versionsImage {
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    border: 1px solid black;
+}
+
+#ABChoices {
+    height: 80%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 40% 20% 20% 20%;
+    grid-template-columns: 90% 5% 5%;
+    place-items: center;
+}
+
+#ABChoices > div:not(.radioHeader), #AEval > div:not(.radioHeader), #BEval > div:not(.radioHeader) {
+    justify-self: start;
+}
+
+#AEval, #BEval {
+    height: 80%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-columns: 75% 5% 5% 5% 5% 5%;
+    place-items: center;
+}
+
+#AEval > div:first-child, #BEval > div:first-child {
+    grid-column-start: span 6;
+}
+
+#comments {
+    height: 90%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 10% 90%;
+}
+
+#commentsTextArea {
+    height: 100%;
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+}
+
+.settingsOptionsTitle {
+    color: white;
+    justify-self: center;
+    align-self: center;
+    font-weight: bold;
+    font-size: 15px;
+    padding-right: 5px;
+}
+
+.settingsOptionsContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.optionButton {
+    height: 40%;
+    line-height: 100%;
+    background-color: white;
+}
+
+.optionButton.clicked {
+    background-color: grey;
+    border: 1px solid white;
+}
+
+.checkmarkLabel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 0.5vw;
+}
+
+.checkmarkLabel:hover > .checkmark {
+    background-color: #404040;
+}
+
+.checkmarkLabel.clicked > .checkmark {
+    background-color: #404040;
+}
+
+.checkmarkLabel.clicked img {
+    display: block;
+}
+
+.checkmark {
+    height: 25px;
+    width: 25px;
+    display: grid;
+    border-radius: 20%;
+    background-color: grey;
+    border: 1px solid black;
+}
+
+.checkmark img {
+    display: none;
+    width: 70%;
+    height: auto;
+    justify-self: center;
+    align-self: center;
+}
+
+.deckLines {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    pointer-events: none;
+}
+
+#leftDeck {
+    left: 0;
+}
+
+#rightDeck {
+    left: 50%;
+}
+
+#comparedDataContainer {
+    width: 100%;
+    height: 8%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    place-items: center;
+    opacity: 0;
+}
+
+#comparedCanvasContainer {
+    height: 60%;
+    width: 100%;
+    display: grid;
+}
+
+.comparedCanvas {
+    background: grey;
+    height: 0;
+    width: 100%;
+    opacity: 0;
+}
+
+#altLegendContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#altLegendContainer::-webkit-scrollbar {
+    display: none;
+}
+
+/**********************************************************************************************************************/
+/* Version A */
+
+#datasetSelect {
+    height: 71%;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+select:focus-visible {
+    outline: none !important;
+}
+
+/**********************************************************************************************************************/
+/* Version B */
+
+#sortSelect {
+    height: 71%;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#tooltipGrid {
+    display: grid;
+}
+
+#tooltipGrid > div:not(:last-child) {
+    border-right: 1px solid white;
+}
+
+#tooltipGrid > div:not(:first-child) {
+    padding-left: 5px;
+}
+
+#tooltipGrid > div:not(:last-child) {
+    padding-right: 5px;
+}
+
+.altLegend {
+    grid-template-rows: 15% 15% 70%;
+}
+
+#altLegendAreaVB {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    flex-basis: 10%;
+}
+
+#altLegendsContainer {
+    width: 100%;
+    overflow-y: auto;
+    display: grid;
+    flex-basis: 90%;
+    flex-grow: 1;
+}
+
+#altLegendsContainer::-webkit-scrollbar {
+    display: none;
+}

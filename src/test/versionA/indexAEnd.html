@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flowstrates</title>
+    <link rel="icon" type="image/jpg" href="../../../media/icon.jpg">
+    <link rel="stylesheet" href="../index.css">
+    <script src="../../../lib/d3.v7.min.js"></script>
+    <script src="../../../lib/pixi.min.js"></script>
+    <script src="../../../lib/deck.min.js"></script>
+    <script src="../../../lib/lodash.js"></script>
+
+    <script src="../properties.js"></script>
+    <script src="../generalScript.js" defer></script>
+    <script src="../questions.js" defer></script>
+    <script src="../mapScript.js" defer></script>
+    <script src="../odScript.js" defer></script>
+    <script src="altScript.js" defer></script>
+    <script src="compareScript.js" defer></script>
+    <script src="initScript.js" defer></script>
+</head>
+<body>
+    <div id="paneContainer">
+
+        <img id="questionsLogo" alt="questionsLogo" src="../../../media/questions.png">
+
+        <div class="pane" id="leftPane">
+            <div class="header">
+                <h1 class="paneTitle">Origins</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="leftLoading">
+                <svg id="leftsvg" class="svgPane"></svg>
+            </div>
+        </div>
+
+        <div id="leftSelectedAreasList" class="selectedAreasList">
+            <b id="leftSelectedAreasCounter">selected area</b>
+            <table><tbody></tbody></table>
+        </div>
+        <div id="leftNotifyContainer" class="notifyContainer">
+            <div id="leftLassoModeNotify" class="notify">Lasso Mode</div>
+            <div id="leftAggreModeNotify" class="notify">Aggregation Mode</div>
+        </div>
+        <div id="odLegend" class="legend">
+            <b id="odLegendTitle" class="legendTitle"></b>
+            <div id="odLegendCheckbox" class="checkmarkLabel clicked">
+                <div class="checkmark">
+                    <img src="../../../media/checkmark.png" alt="">
+                </div>
+                <text>Local colorScale</text>
+            </div>
+            <b id="odLegendArea"></b>
+            <div id="odLegendStatContainer" class="legendStatContainer">
+                <div id="odStatColor0" class="statColor"></div><text id="odStatText0" class="statText"></text>
+                <div id="odStatColor1" class="statColor"></div><text id="odStatText1" class="statText"></text>
+                <div id="odStatColor2" class="statColor"></div><text id="odStatText2" class="statText"></text>
+                <div id="odStatColor3" class="statColor"></div><text id="odStatText3" class="statText"></text>
+                <div id="odStatColor4" class="statColor"></div><text id="odStatText4" class="statText"></text>
+            </div>
+        </div>
+        <div id="leftTopButtonContainer" class="topButtonContainer">
+            <div id="leftClear" class="button">Clear</div>
+            <div id="leftFit" class="button">Fit</div>
+        </div>
+
+
+        <div id="midPane" class="pane">
+            <div id="midLoadingContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="midLoading">
+            </div>
+
+            <div class="settingsContainer">
+                <div id="displayAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Display</text>
+                    <div id="diffAltDisplayOption" class="optionButton button">Difference</div>
+                </div>
+                <div id="GroupAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Group</text>
+                    <div id="geoAltGroupOption" class="optionButton button">All</div>
+                </div>
+                <div id="sortAltOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Sort by</text>
+                    <div id="minAltSortOption" class="altSortOption optionButton button">Min</div>
+                    <div id="maxAltSortOption" class="altSortOption optionButton button">Max</div>
+                    <div id="avgAltSortOption" class="altSortOption optionButton button">Avg</div>
+                    <div id="geoAltSortOption" class="altSortOption optionButton button">Geo</div>
+                </div>
+                <div id="datasetAltOptionsContainer" class="settingsOptionsContainer">
+                    <label for="datasetSelect" class="settingsOptionsTitle">Dataset</label>
+                    <select id="datasetSelect" class="optionButton"></select>
+                </div>
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div id="altDataContainer">
+                <div id="altTimeContainer">
+                    <div id="altTimeLineContainer"></div>
+                    <div id="altLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="altRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="altGeoContainer">
+                    <canvas id="altGeoCanvas" class="altGeoLine"></canvas>
+                    <canvas id="altCanvas"></canvas>
+                    <div id="altLegendContainer">
+                        <div id="altLegend" class="legend">
+                            <b id="altLegendTitle" class="legendTitle"></b>
+                            <div id="altLegendCheckbox" class="checkmarkLabel clicked">
+                                <div class="checkmark">
+                                    <img src="../../../media/checkmark.png" alt="">
+                                </div>
+                                <text>Local colorScale</text>
+                            </div>
+                            <b id="altLegendArea"></b>
+                            <div class="legendStatContainer">
+                                <div id="altStatColor0" class="statColor"></div><text id="altStatText0" class="statText"></text>
+                                <div id="altStatColor1" class="statColor"></div><text id="altStatText1" class="statText"></text>
+                                <div id="altStatColor2" class="statColor"></div><text id="altStatText2" class="statText"></text>
+                                <div id="altStatColor3" class="statColor"></div><text id="altStatText3" class="statText"></text>
+                                <div id="altStatColor4" class="statColor"></div><text id="altStatText4" class="statText"></text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comparedDataContainer">
+                <div id="dataClear" class="button">Clear</div>
+                <div id="comparedCanvasContainer">
+                    <canvas id="comparedAltCanvas" class="comparedCanvas"></canvas>
+                    <canvas id="comparedODCanvas" class="comparedCanvas"></canvas>
+                </div>
+                <div id="dataFit" class="button">Fit</div>
+            </div>
+
+            <div id="odDataContainer">
+                <div id="odTimeContainer">
+                    <div id="odTimeLineContainer"></div>
+                    <div id="odLeftTimeHider" class="timeHider leftTimeHider"></div>
+                    <div id="odRightTimeHider" class="timeHider rightTimeHider"></div>
+                </div>
+                <div id="odGeoContainer">
+                    <canvas id="originCanvas" class="odGeoLine"></canvas>
+                    <canvas id="odCanvas"></canvas>
+                    <canvas id="destinationCanvas" class="odGeoLine"></canvas>
+                </div>
+            </div>
+
+            <div class="dataSpacer"></div>
+
+            <div class="settingsContainer">
+                <div id="displayODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Display</text>
+                    <div id="linesODDisplayOption" class="optionButton button">Lines</div>
+                    <div id="diffODDisplayOption" class="optionButton button">Difference</div>
+                </div>
+                <div id="groupODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Group by</text>
+                    <div id="originODGroupOption" class="optionButton button">Origin</div>
+                    <div id="destinationODGroupOption" class="optionButton button">Destination</div>
+                </div>
+                <div id="sortODOptionsContainer" class="settingsOptionsContainer">
+                    <text class="settingsOptionsTitle">Sort by</text>
+                    <div id="minODSortOption" class="odSortOption optionButton button">Min</div>
+                    <div id="maxODSortOption" class="odSortOption optionButton button">Max</div>
+                    <div id="avgODSortOption" class="odSortOption optionButton button">Avg</div>
+                    <div id="oriODSortOption" class="odSortOption optionButton button">Origin</div>
+                    <div id="desODSortOption" class="odSortOption optionButton button">Destination</div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div id="rightPane" class="pane">
+            <div class="header">
+                <h1 class="paneTitle">Destinations</h1>
+            </div>
+            <div class="mapContainer">
+                <img src="../../../media/Loading.png" alt="" class="loading" id="rightLoading">
+                <svg id="rightsvg" class="svgPane"></svg>
+            </div>
+        </div>
+        <div id="rightSelectedAreasList" class="selectedAreasList">
+            <b id="rightSelectedAreasCounter">selected area</b>
+            <table><tbody></tbody></table>
+        </div>
+        <div id="rightNotifyContainer" class="notifyContainer">
+            <div id="rightLassoModeNotify" class="notify">Lasso Mode</div>
+            <div id="rightAggreModeNotify" class="notify">Aggregation Mode</div>
+        </div>
+        <div id="rightTopButtonContainer" class="topButtonContainer">
+            <div id="rightClear" class="button">Clear</div>
+            <div id="rightFit" class="button">Fit</div>
+        </div>
+
+        <div id="leftDeck" class="deckLines"></div>
+        <div id="rightDeck" class="deckLines"></div>
+
+    </div>
+
+    <div id="tooltip"></div>
+    <div id="questionsOverlay"></div>
+    <div id="questionsPane">
+        <div class="questionsPage explanationPage2">
+            <div id="explanations">
+                You finished part 1 of experience ! <br><br>
+                As you can see, the program is almost the same as before.
+                But some changes are still visible. <br><br>
+                On the next slide, differences are explained in a short video (~20sec).
+            </div>
+            <button id="videoButton" class="questionsButton button">Explanation video</button>
+        </div>
+        <div class="questionsPage videoPage">
+            <video id="video" onended="videoEnded()">
+                <source src="../../../media/end_versionA.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="questionsPage explanationPage">
+            <div>
+                Your task is essentially the same as in part 1 <br>
+                but the challenge is to discover new findings. <br><br>
+                Try to find around 3 findings.
+            </div>
+            <button id="startPartButton" class="questionsButton button">Start Part 2</button>
+        </div>
+        <div id="findingPage" class="questionsPage">
+            <img class="questionsCloseButton nextToTimer" src="../../../media/close.png" alt="close">
+            <div id="questionsTimer">
+                <div id="questionsTimerMin"></div>:<div id="questionsTimerSec"></div>
+            </div>
+            <div id="findingContainer">
+                <div id="findingTableHeader">
+                    <div>F#</div>
+                    <div>Finding</div>
+                </div>
+                <div id="findingTable">No finding</div>
+            </div>
+            <div id="buttonTextAreaContainer">
+                <button id="addFindingButton" class="questionsButton button">
+                    <img id="findingPlus" src="../../../media/plus.png" alt="plus">
+                    Add new finding
+                </button>
+                <div id="textAreaContainer">
+                    <textarea id="findingsTextArea" spellcheck="false"></textarea>
+                    <div id="findingButtonContainer">
+                        <img id="findingValidate" class="button" src="../../../media/validate.png" alt="validate">
+                        <img id="findingDelete" class="button" src="../../../media/delete.png" alt="delete">
+                    </div>
+                </div>
+                <button id="endPartButton" class="questionsButton button finalButton">Finish Part 2</button>
+            </div>
+        </div>
+        <div class="questionsPage onePage">
+            <div id="qualitativeEval">
+                <div id="versionsLegend">
+                    <div class="versionsHolder">
+                        <div>B (Part 1)</div>
+                        <img class="versionsImage" src="../../../media/versionB.JPG" alt="VersionB">
+                    </div>
+                    <div class="versionsHolder">
+                        <div>A (Part 2)</div>
+                        <img class="versionsImage" src="../../../media/versionA.JPG" alt="VersionA">
+                    </div>
+                </div>
+                <div id="ABChoices">
+                    <div>Version A or B</div>
+                    <div class="radioHeader">A</div>
+                    <div class="radioHeader">B</div>
+                    <div>Which version is the most intuitive ?</div>
+                    <input type="radio" name="AorBq1"  value="A">
+                    <input type="radio" name="AorBq1" value="B">
+                    <div>Which version did you find the most findings with ?</div>
+                    <input type="radio" name="AorBq2" value="A">
+                    <input type="radio" name="AorBq2" value="B">
+                    <div>Which version is easier to work with ?</div>
+                    <input type="radio" name="AorBq3"  value="A">
+                    <input type="radio" name="AorBq3" value="B">
+                </div>
+                <div id="AEval">
+                    <div>Version A</div>
+                    <div>(1 = very bad,   5 = very good)</div>
+                    <div class="radioHeader">1</div>
+                    <div class="radioHeader">2</div>
+                    <div class="radioHeader">3</div>
+                    <div class="radioHeader">4</div>
+                    <div class="radioHeader">5</div>
+                    <div>Useful to discover large-grained findings (e.g. general tendencies)</div>
+                    <input type="radio" name="verAq1" value="1">
+                    <input type="radio" name="verAq1" value="2">
+                    <input type="radio" name="verAq1" value="3">
+                    <input type="radio" name="verAq1" value="4">
+                    <input type="radio" name="verAq1" value="5">
+                    <div>Useful to discover fine-grained findings (e.g. detailed observations)</div>
+                    <input type="radio" name="verAq2" value="1">
+                    <input type="radio" name="verAq2" value="2">
+                    <input type="radio" name="verAq2" value="3">
+                    <input type="radio" name="verAq2" value="4">
+                    <input type="radio" name="verAq2" value="5">
+                    <div>Useful to compare between datasets</div>
+                    <input type="radio" name="verAq3" value="1">
+                    <input type="radio" name="verAq3" value="2">
+                    <input type="radio" name="verAq3" value="3">
+                    <input type="radio" name="verAq3" value="4">
+                    <input type="radio" name="verAq3" value="5">
+                </div>
+                <div id="BEval">
+                    <div>Version B</div>
+                    <div>(1 = very bad,   5 = very good)</div>
+                    <div class="radioHeader">1</div>
+                    <div class="radioHeader">2</div>
+                    <div class="radioHeader">3</div>
+                    <div class="radioHeader">4</div>
+                    <div class="radioHeader">5</div>
+                    <div>Useful to discover large-grained findings (e.g. general tendencies)</div>
+                    <input type="radio" name="verBq1" value="1">
+                    <input type="radio" name="verBq1" value="2">
+                    <input type="radio" name="verBq1" value="3">
+                    <input type="radio" name="verBq1" value="4">
+                    <input type="radio" name="verBq1" value="5">
+                    <div>Useful to discover fine-grained findings (e.g. detailed observations)</div>
+                    <input type="radio" name="verBq2" value="1">
+                    <input type="radio" name="verBq2" value="2">
+                    <input type="radio" name="verBq2" value="3">
+                    <input type="radio" name="verBq2" value="4">
+                    <input type="radio" name="verBq2" value="5">
+                    <div>Useful to compare between datasets</div>
+                    <input type="radio" name="verBq3" value="1">
+                    <input type="radio" name="verBq3" value="2">
+                    <input type="radio" name="verBq3" value="3">
+                    <input type="radio" name="verBq3" value="4">
+                    <input type="radio" name="verBq3" value="5">
+                </div>
+                <div id="comments">
+                    <div>Free comments (tool utility/usability, versionA vs versionB)</div>
+                    <textarea id="commentsTextArea" spellcheck="false"></textarea>
+                </div>
+                <button class="questionsButton button qualitativeSend" disabled>Send answers</button>
+            </div>
+        </div>
+        <div id="endSmileyPage" class="questionsPage nonClosablePage">
+            <h2> Thank you for <br> your participation !</h2>
+            <img id="questionsEndSmiley" src="../../../media/smileyEnd.png" alt="smiley">
+            <button id="questionsEndButton" class="questionsButton button">End experience</button>
+        </div>
+    </div>
+</body>
+</html>

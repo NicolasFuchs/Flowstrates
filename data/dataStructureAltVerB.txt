@@ -1,0 +1,59 @@
+Alt data structure Version B
+
+{
+    data: {
+            CHF_FRA: {
+                        id: CHF,
+                        geoCode: CHF,
+                        geo: Suisse,
+                        datasets: [
+                            {
+                                original: {
+                                    data: {
+                                            total:   {1993: 43, 1996: 29, 1997: 74},
+                                            deaths:  {1993: - , 1996: 20, 1997: 52},
+                                            injured: {1993: 43, 1996:  9, 1997: 22}
+                                    },
+                                    minValue: 29,
+                                    maxValue: 74,
+                                    avgValue: 48.66,
+                                    colorScale: object (local)
+                                },
+                                difference: {
+                                    data: {
+                                            total:   {1993: -, 1996: -, 1997: 45},
+                                            deaths:  {1993: -, 1996: -, 1997: 32},
+                                            injured: {1993: -, 1996: -, 1997: 13}
+                                    },
+                                    minValue: 45,
+                                    maxValue: 45,
+                                    avgValue: 45,
+                                    colorScale: [negColorScale (object), posColorScale (object)] (local)
+                                }
+                            },
+                            {
+                                temperatures dataset
+                            }
+                        ]
+            },
+            ...
+    },
+    globalData: [
+        {
+            original: {
+                minValue: 29,
+                maxValue: 74,
+                colorScale: object (global)
+            },
+            difference: {
+                minValue: 45,
+                maxValue: 45,
+                colorScale: [negColorScale (object), posColorScale (object)] (global)
+            }
+        },
+        {
+            temperatures globalData
+        }
+    ],
+    dataColumnNames: [ [deaths, injured], [temperature] ]
+}
