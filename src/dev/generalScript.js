@@ -169,7 +169,7 @@ function addDataCenterButtonHandlers() {
 /* Displays legend stats (colors + numbers) */
 function displayLegendStats(data, isODData, index) {
     const colorScale = data.colorScale;
-    if (!colorScale) {  //TODO flowstratesplus
+    if (!colorScale) {  //TODO test
         if (isODData) hideODLegendContent();
         else hideAltLegendContent(index);
         return;

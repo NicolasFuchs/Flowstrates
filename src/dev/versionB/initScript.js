@@ -383,11 +383,11 @@ function filterAltData(altDataOutput, index) {
         const difference = altData.data[id].datasets[index].difference;
         //for (const key in original.data) {
             //const dataKey = original.data[key];
-        for (const key in difference.data) {          //TODO flowstratesplus
-            const dataKey = difference.data[key];     //TODO flowstratesplus
+        for (const key in difference.data) {          //TODO test
+            const dataKey = difference.data[key];     //TODO test
             for (const date in dataKey) {
                 //const diff = dataKey[date] - dataKey?.[parseInt(date)-1];
-                const diff = original.data[key]?.[date] - original.data[key]?.[parseInt(date)-1];   //TODO flowstratesplus
+                const diff = original.data[key]?.[date] - original.data[key]?.[parseInt(date)-1];   //TODO test
                 if (!isNaN(diff)) {
                     difference.data[key][date] = diff;
                     if (key === 'total') {
@@ -398,7 +398,7 @@ function filterAltData(altDataOutput, index) {
                         globalDifferenceMaxValue = Math.max(globalDifferenceMaxValue, difference.maxValue);
                     }
                 } else {
-                    delete difference.data[key][date];  //TODO flowstratesplus
+                    delete difference.data[key][date];  //TODO test
                 }
             }
         }

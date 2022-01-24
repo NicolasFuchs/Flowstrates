@@ -313,7 +313,7 @@ function colorAltAreaOnHover(dataLine, data, newTime, hoverOnCompared) {
     if (lastAltAreaPathID !== newAltAreaPathID || lastAltTime !== newTime) {
         clearLastAltAreaHoverColor();
         altTimeout = setTimeout(() => {
-            if (data) { //TODO flowstratesplus
+            if (data) { //TODO test
                 const colorScale = hoverOnCompared ? getDiffOriColorScale(dataLine.colorScale, data) : getAltColorScale(dataLine, data);
                 if (colorScale(data)) {
                     for (const areaPath of newAltAreaPath) {
@@ -740,8 +740,8 @@ function applyAltGrouping() {
     const difference = newAltDataObject.data[id].difference;
     //for (const dataColumnType in originalData) {
     //    for (const date in originalData[dataColumnType]) {
-    for (const dataColumnType in difference.data) {             //TODO flowstratesplus
-        for (const date in difference.data[dataColumnType]) {   //TODO flowstratesplus
+    for (const dataColumnType in difference.data) {             //TODO test
+        for (const date in difference.data[dataColumnType]) {   //TODO test
             const diff = originalData[dataColumnType][date] - originalData[dataColumnType]?.[parseInt(date) - 1];
             if (!isNaN(diff)) {
                 difference.data[dataColumnType][date] = diff;
@@ -751,7 +751,7 @@ function applyAltGrouping() {
                     difference.avgValue = difference.avgValue + diff;
                 }
             } else {
-                delete difference.data[dataColumnType][date];   //TODO flowstratesplus
+                delete difference.data[dataColumnType][date];   //TODO test
             }
         }
     }
