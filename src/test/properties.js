@@ -43,8 +43,8 @@ const dataBackgroundColor = 0x404040;       // BackgroundColor for Data graphics
 const areaHoverColorTimeout = 200;          // Timeout in milliseconds to wait before displaying area colors on maps corresponding to OD data
 
 
-//const questionsTimerDuration = 600;         // Timer duration (seconds) for each part of evaluation test
-const questionsTimerDuration = 5;
+const questionsTimerDuration = 600;         // Timer duration (seconds) for each part of evaluation test
+//const questionsTimerDuration = 5;
 
 const qualitativeRadioGroups = ['AorBq1', 'AorBq2', 'AorBq3', 'verAq1', 'verAq2', 'verAq3', 'verBq1', 'verBq2', 'verBq3'];
 
